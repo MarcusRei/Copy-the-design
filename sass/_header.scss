@@ -1,0 +1,125 @@
+@use "variables" as var;
+@use "mixins";
+
+.header {
+  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: 100vw;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: var.$color-transparent;
+
+    .menu a {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+    }
+
+    & li {
+    }
+  }
+
+  .menu a:hover {
+    text-decoration: underline;
+    color: var.$color-secondary;
+  }
+}
+
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+}
+
+//menu-symbol
+
+.menu-icon {
+  padding: 28px 20px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+
+  .nav-icon {
+    background-color: var.$color-secondary;
+    display: flex;
+    right: 1em;
+    height: 2px;
+    width: 18px;
+    position: relative;
+    transition: background 0.2s ease-out;
+  }
+
+  .nav-icon::before {
+    background: var.$color-secondary;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    top: 5px;
+  }
+
+  .nav-icon::after {
+    background: var.$color-secondary;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    top: -5px;
+  }
+}
+
+.menu-btn {
+  display: none;
+}
+
+.menu-btn:checked ~ .menu {
+  max-height: 240px;
+}
+
+//kryss-animation
+
+.menu-btn:checked ~ .menu-icon .nav-icon {
+  background: transparent;
+}
+.menu-btn:checked ~ .menu-icon .nav-icon::before {
+  transform: rotate(-45deg);
+  top: 0;
+}
+.menu-btn:checked ~ .menu-icon .nav-icon::after {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+@media (min-width: 768px) {
+  .menu {
+    flex-direction: row;
+    max-height: none;
+  }
+  .menu li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-icon {
+    display: none;
+  }
+}
